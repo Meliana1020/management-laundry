@@ -47,4 +47,5 @@ F.	Tabel yang tersedia :
 * Tabel Financial_transactions
 
 G. Struktur Database	
+
    ![Foto Laundry](./ERD/laundry.png)
