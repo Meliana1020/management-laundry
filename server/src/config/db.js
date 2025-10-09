@@ -1,43 +1,49 @@
-import pkg from "pg";
-import dotenv from "dotenv";
+const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-const { Pool } = pkg;
+const environment = process.env.NODE_ENV;
 
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  port: Number(process.env.DB_PORT) || 5432,
-  ssl: {
-    rejectUnauthorized: false,
+const config = {
+  development: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: 'postgres',
+    port: process.env.DB_PORT,
   },
-});
+  test: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME_TEST,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: 'postgres',
+  },
+  production: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: 'postgres',
+    port: process.env.DB_PORT,
+  },
+};
 
-export default pool;
+const sequelizeConfig = config[environment];
 
+const sequelizeInstance = new Sequelize(
+  sequelizeConfig.database,
+  sequelizeConfig.username,
+  sequelizeConfig.password,
+  {
+    host: sequelizeConfig.host,
+    dialect: sequelizeConfig.dialect,
+    port: sequelizeConfig.port,
+    logging: false,
+  }
+);
 
-// import dotenv from "dotenv";
-// dotenv.config();
-// import { Sequelize } from "sequelize";
-
-// export const sequelize = new Sequelize(
-//   process.env.DB_NAME,       
-//   process.env.DB_USER,       
-//   process.env.DB_PASSWORD,   
-//   {
-//     host: process.env.DB_HOST,
-//     dialect: "postgres",     
-//     port: process.env.DB_PORT,
-//     logging: false,          
-//   }
-// );
-
-// try {
-//   await sequelize.authenticate();
-//   console.log(" Terhubung ke basis data.");
-// } catch (error) {
-//   console.error(" Gagal terhubung ke basis data:", error.message);
-// }
+module.exports = { sequelize: sequelizeInstance };

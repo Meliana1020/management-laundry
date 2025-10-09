@@ -48,4 +48,4 @@ F.	Tabel yang tersedia :
 
 G. Struktur Database	
 
-   ![Foto Laundry](./ERD/laundry.png)
+   ![Foto Laundry](./assets/laundry.png)

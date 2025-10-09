@@ -1,21 +1,34 @@
-import express from "express";
-import pool from "./config/db.js"; 
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const { syncDatabase } = require('./model/relasi.js');
+const { sequelize } = require('./config/db.js');
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
-app.get("/", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json({ success: true, time: result.rows[0] });
-  } catch (err) {
-    console.error("Database error:", err);
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
+app.use('/');
 
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
-});
+(async () => {
+    try {
+  
+      try {
+  
+        await sequelize.authenticate();
+        console.log('Terhubung ke basis data');
+    
+      } catch (error) {
+        console.error('Gagal terhubung ke basis data:', error.message);
+      }
+  
+      await syncDatabase();
+  
+      app.listen(3000, () => {
+        console.log('Server berjalan di port 3000');
+      });
+    } catch (error) {
+      console.error('Gagal setup awal:', error.message);
+    }
+  })();
+  
