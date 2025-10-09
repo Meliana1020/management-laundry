@@ -36,7 +36,7 @@ D.	Adapun fitur yang tersedia :
 E.	Techstack
 * Frontend    : Next js App Router, Tailwind css, Shadcn ui, Tanstack Query, React hook form, zod
 * Backend     : Node.js, Express.js, Sequelize
-* atabase    : PostgreSQL
+* Database    : PostgreSQL
 * Api testing : Postman
 
 F.	Tabel yang tersedia :
