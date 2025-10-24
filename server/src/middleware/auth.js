@@ -22,8 +22,8 @@ function authMiddleware(req, res, next) {
       return res.status(403).json({ message: 'Akses ditolak. Hanya admin yang bisa mengakses.' });
     }
 
-    if (path.includes('/api/customer') && cekToken.role !== 'seller') {
-      return res.status(403).json({ message: 'Akses ditolak. Hanya seller yang bisa mengakses.' });
+    if (path.includes('/api/customer') && cekToken.role !== 'customer') {
+      return res.status(403).json({ message: 'Akses ditolak. Hanya customer yang bisa mengakses.' });
     }
 
     next();
