@@ -36,6 +36,18 @@ const paymentsModel = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    updated_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deleted_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "Payments",

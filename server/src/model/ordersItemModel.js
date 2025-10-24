@@ -28,6 +28,18 @@ const ordersItemModel = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       defaultValue: 0,
     },
+    updated_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deleted_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "OrdersItem",

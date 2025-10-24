@@ -48,6 +48,18 @@ const financialTransactionsModel = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    updated_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deleted_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     tableName: "FinancialTransactions",

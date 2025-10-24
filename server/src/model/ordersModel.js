@@ -18,19 +18,19 @@ const ordersModel = sequelize.define(
                 key: "id",
             },
         },
-        tanggal_order: {
-            type: DataTypes.DATEONLY,
+        order_date: {
+            type: DataTypes.DATE,
             allowNull: false,
         },
         jenis_layanan: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        total_berat: {
+        weight_amount: {
             type: DataTypes.DECIMAL(10, 2),
             defaultValue: 0,
         },
-        total_harga: {
+        price_amount: {
             type: DataTypes.DECIMAL(12, 2),
             defaultValue: 0,
         },
