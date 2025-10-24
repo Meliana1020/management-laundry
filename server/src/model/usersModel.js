@@ -27,7 +27,7 @@ const usersModel = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("Admin", "Pelanggan"), 
+      type: DataTypes.ENUM("Admin", "Customer"), 
       defaultValue: "Admin"
     },
     updated_by: {
