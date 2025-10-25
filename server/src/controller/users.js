@@ -50,34 +50,35 @@ async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
 
-        const cekData = await usersModel.findAll();
+        const data = await usersModel.findAll();
 
-        if (cekData.length === 0) {
+        if (data.length === 0) {
             return res.status(404).json({ message: "Data admin tidak ditemukan." });
-        } else {
-            const cekEmail = await usersModel.findOne({where: { email }});
-
-            if (!cekEmail) {
-                return res.status(404).json({ message: "Email tidak ditemukan" });
-            }
-
-            const hash = await bcrypt.compare(password, cekEmail.password);
-
-            if (!hash) {
-                return res.status(401).json({ message: "Password salah" });
-            }
-
-            const dataJwt = jwt.sign({
-                id: cekEmail.id,
-                name: cekEmail.name,
-                email: cekEmail.email,
-                role: cekEmail.role,
-            }, process.env.SECRET_KEY);
-
-            res.status(200).json({ message: "Berhasil login", token: `${dataJwt}` });
         }
+
+        const cekData = await usersModel.findOne({ where: { email } });
+
+        if (!cekData) {
+            return res.status(404).json({ message: "Email tidak ditemukan" });
+        }
+
+        const hash = await bcrypt.compare(password, cekData.password);
+
+        if (!hash) {
+            return res.status(401).json({ message: "Password salah" });
+        }
+
+        const dataJwt = jwt.sign({
+            id: cekData.id,
+            name: cekData.name,
+            email: cekData.email,
+            role: cekData.role,
+        }, process.env.SECRET_KEY);
+
+        res.status(200).json({ message: "Berhasil login", token: `${dataJwt}` });
+
     } catch (error) {
-        console.error("Gagal mendaftar:", error.message);
+        console.error("Gagal login:", error.message);
         res.status(500).json({ message: "Terjadi kesalahan server" });
     }
 }
