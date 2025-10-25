@@ -15,8 +15,8 @@ function authMiddleware(req, res, next) {
 
     const path = req.baseUrl || '';
     
-    // console.log('ROLE:', cekToken.role);
-    // console.log('BASE URL:', path);
+    // console.log('CEKKK ROLEEE:', cekToken.role);
+    // console.log('BASEEE URLLL:', path);
 
     if (path.includes('/api/admin') && cekToken.role !== 'admin') {
       return res.status(403).json({ message: 'Akses ditolak. Hanya admin yang bisa mengakses.' });
