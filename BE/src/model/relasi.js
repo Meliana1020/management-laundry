@@ -1,5 +1,3 @@
-const { sequelize } = require("../config/db.js");
-
 const { usersModel } = require("./usersModel.js");
 const { ordersModel } = require("./ordersModel.js");
 const { ordersItemModel } = require("./ordersItemModel.js");
@@ -25,17 +23,7 @@ financialTransactionsModel.belongsTo(paymentsModel, { foreignKey: 'payment_id' }
 ordersModel.hasMany(payrollsModel, { foreignKey: 'order_id'});
 payrollsModel.belongsTo(ordersModel, { foreignKey: 'order_id'});
 
-async function syncDatabase() {
-  try {
-    await sequelize.sync({ alter: true });
-    console.log("sinkronisasi sukses");
-  } catch (err) {
-    console.error("sinkronisasi gagal:", err);
-  }
-}
-
 module.exports = {
-  syncDatabase,
   usersModel,
   ordersModel,
   ordersItemModel,

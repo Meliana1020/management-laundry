@@ -1,28 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const {
-    registrasiUser, 
-    loginUser,
-    // getUser,
-    // resetPasswordUser,
-    // updateUser,
-    // deletUser
+    getAllUser
 } = require('../controller/users.js');
 
-// const authMiddleware = require('../middleware/auth.js');
+const {
+    getAllStocks,
+    addStocks,
+    updateStocks,
+    deleteStocks
+} = require('../controller/stocks.js');
+
+const authMiddleware = require('../middleware/auth.js');
 
 
-router.post('/registrasi-user', registrasiUser);
-router.post('/login-user', loginUser);
-// router.get('/get-user', getUser)
-// router.put('/reset/password/:id', resetPasswordUser);
-// router.put('/update/user-by/:id', updateUser);
-// router.delete('/delete/user-by/:id', deletUser);
-
-// router.get('/get-customers',);
-// router.get('/get-customer-by/:id',);
-// router.delete('/delete-customer-by/:id',);
-
+router.get('/get-user', authMiddleware, getAllUser)
 
 // // untuk ordernya
 // router.post('/add-order',);
@@ -44,29 +36,29 @@ router.post('/login-user', loginUser);
 // router.put('/update-payments/:id/status',);
 
 // // untuk stok
-// router.get('/get-stocks',);
-// router.post('/add-stocks',);
-// router.put('/update-stocks/:id',);
-// router.delete('/delete-stocks/:id',);
+router.get('/get-stocks', getAllStocks);
+router.post('/add-stocks', authMiddleware, addStocks);
+router.put('/update-stocks/:id', authMiddleware, updateStocks);
+router.delete('/delete-stocks/:id', authMiddleware, deleteStocks);
 
 // // untuk upah karyawannya
-// router.get('/get-payrolls',);
-// router.post('/add-payrolls',);
-// router.get('/get-payrolls/:order_id',);
-// router.delete('/delete-payrolls/:id',);
+// router.get('/get-payrolls', authMiddleware,);
+// router.post('/add-payrolls', authMiddleware,);
+// router.get('/get-payrolls/:order_id', authMiddleware,);
+// router.delete('/delete-payrolls/:id', authMiddleware,);
 
 // // untuk financenya
-// router.get('/get-finance',);
-// router.post('/add-finance',);
-// router.post('/add-finance/income',);
-// router.delete('/delete-finance/:id',);
+// router.get('/get-finance', authMiddleware,);
+// router.post('/add-finance', authMiddleware,);
+// router.post('/add-finance/income', authMiddleware,);
+// router.delete('/delete-finance/:id', authMiddleware,);
 
 
 // // untuk laporan
-// router.get('/get-reports/daily',);
-// router.get('/get-reports/weekly',);
-// router.get('/get-reports/monthly',);
-// router.get('/get-reports/yearly',);
-// router.get('/get/dashboard',);
+// router.get('/get-reports/daily', authMiddleware,);
+// router.get('/get-reports/weekly', authMiddleware,);
+// router.get('/get-reports/monthly', authMiddleware,);
+// router.get('/get-reports/yearly', authMiddleware,);
+// router.get('/get/dashboard', authMiddleware,);
 
 module.exports = router;

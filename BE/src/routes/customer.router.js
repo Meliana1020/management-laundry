@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const {
-    registrasiUser,
-    loginUser,
-    // resetPasswordUser,
-    // updateUser,
-    // deletUser
+   getByIdCustomer,
+   updateCustomer,
+   deleteCustomer,
+   resetPasswordUser
 } = require('../controller/users.js');
+const authMiddleware = require('../middleware/auth.js');
 
-// const authMiddleware = require('../middleware/auth.js');
+router.get('/get-customer-by/:id', authMiddleware, getByIdCustomer);
+router.put('/update/customer-by/:id', authMiddleware, updateCustomer);
+router.delete('/delete/customer-by/:id', authMiddleware, deleteCustomer);
+router.put('/reset/password-customer-by/:id', authMiddleware, resetPasswordUser);
 
-
-router.post('/registrasi-user', registrasiUser);
-router.post('/login-user', loginUser);
-// router.put('/reset/password/:id', resetPasswordUser);
-// router.put('/update/user-by/:id', updateUser);
-// router.delete('/delete/user-by/:id', deletUser);
 
 
 // // untuk ordernya
