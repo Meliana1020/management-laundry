@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {
-    getAllUser
+    getAllUser,
+    getUserById,
+    updateUser,
+    resetPassword,
+    deleteUser
 } = require('../controller/users.js');
 
 const {
@@ -14,7 +18,12 @@ const {
 const authMiddleware = require('../middleware/auth.js');
 
 
-router.get('/get-user', authMiddleware, getAllUser)
+router.get('/get-user', authMiddleware, getAllUser);
+router.get('/get-user-by/:id', authMiddleware, getUserById);
+router.put('/update-user-by/:id', authMiddleware, updateUser);
+router.put('/reset-password/:id', authMiddleware, resetPassword);
+router.delete('/delete-user-by/:id', authMiddleware, deleteUser);
+
 
 // // untuk ordernya
 // router.post('/add-order',);
@@ -36,7 +45,7 @@ router.get('/get-user', authMiddleware, getAllUser)
 // router.put('/update-payments/:id/status',);
 
 // // untuk stok
-router.get('/get-stocks', getAllStocks);
+router.get('/get-stocks', authMiddleware, getAllStocks);
 router.post('/add-stocks', authMiddleware, addStocks);
 router.put('/update-stocks/:id', authMiddleware, updateStocks);
 router.delete('/delete-stocks/:id', authMiddleware, deleteStocks);

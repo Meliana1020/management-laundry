@@ -8,10 +8,10 @@ const {
 } = require('../controller/users.js');
 const authMiddleware = require('../middleware/auth.js');
 
-router.get('/get-customer-by/:id', authMiddleware, getByIdCustomer);
-router.put('/update/customer-by/:id', authMiddleware, updateCustomer);
-router.delete('/delete/customer-by/:id', authMiddleware, deleteCustomer);
-router.put('/reset/password-customer-by/:id', authMiddleware, resetPasswordUser);
+router.get('/get-customer-by-id', authMiddleware, getByIdCustomer);
+router.put('/update/customer-by-id', authMiddleware, updateCustomer);
+router.delete('/delete/customer-by-id', authMiddleware, deleteCustomer);
+router.put('/reset/password-customer-by-id', authMiddleware, resetPasswordUser);
 
 
 
