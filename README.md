@@ -11,7 +11,7 @@ B. Tujuan Utama
 
 C. Role User :
 * Admin
-* Pelanggan
+* Customer/Pelanggan
 
 D.	Adapun fitur yang tersedia :
 1. Login Sistem
