@@ -6,7 +6,7 @@ const {
     updateUser,
     resetPassword,
     deleteUser
-} = require('../controller/users.js');
+} = require('../controller/admin.js');
 
 const {
     getAllStocks,
