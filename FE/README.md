@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+   ## BRIEF SISTEM MANAJEMEN LAUNDRY BERBASIS WEBSITE ##
+------------------------------------------------------------
 
-## Getting Started
+A. Ringkasan Proyek
 
-First, run the development server:
+    Proyek ini bertujuan untuk membangun sistem manajemen laundry berbasis website dengan pendekatan MVP (Minimum Viable Product). Sistem difokuskan pada digitalisasi pencatatan pelanggan, pesanan, dan pembayaran, laporan berkali, serta memberikan akses bagi pelanggan untuk memantau status laundry mereka secara real-time.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+B. Tujuan Utama
+- Mendigitalisasi pencatatan transaksi laundry yang sebelumnya manual.
+- Memberikan kemudahan bagi admin dalam mengelola data pelanggan, layanan, pembayaran, pembuatan laporan.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+C. Role User :
+* Admin
+* Pelanggan
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+D.	Adapun fitur yang tersedia :
+1. Login Sistem
+2. Manajemen Pelanggan
+    * CRUD data pelanggan
+    * Lihat riwayat transaksi pelanggan
+3. Manajemen Pesanan
+    * Input data pesanan baru (jenis layanan, jumlah/berat, harga)
+    * Update status cucian : dalam proses -> selesai -> diambil
+    * Catat  pembayaran (tunai/transfer) -> status: lunas/belum lunas/sisa
+4. Manajemen Pengeluaran dan Kebutuhan Operasional
+    * Stok barang: plastik, detergen, parfum, sabun.
+    * Upah karyawan: dicatat per pekerjaan/hari sesuai jumlah cucian yang dikerjakan (tidak tetap)
+5. Laporan & Dashboard
+    * Laporan harian -> jumlah pesanan, pendapatan, pengeluaran (operasional dan upah karyawan)
+    * Laporan mingguan, bulanan, tahunan: pendapatan, pengeluaran (operasional + upah karyawan), serta keuntungan
+      bersih
+6. Portal Pelanggan
+    * Melihat status pesanan
+    * Melihat riwayat transaksi
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+E.	Techstack
+* Frontend    : Next js App Router, Tailwind css, Shadcn ui, Tanstack Query, React hook form, zod
+* Backend     : Node.js, Express.js, Sequelize
+* Database    : PostgreSQL
+* Api testing : Postman
 
-## Learn More
+F.	Tabel yang tersedia :
+* Tabel users
+* Tabel orders
+* Tabel orders_item
+* Tabel payments
+* Tabel Financial_transactions
 
-To learn more about Next.js, take a look at the following resources:
+G. Struktur Database	
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ![Foto Laundry](./assets/laundry.png)
