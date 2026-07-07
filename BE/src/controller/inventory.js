@@ -1,9 +1,10 @@
-const { stocksModel } = require("../model/stocksModel");
+const { inventoryModel } = require("../model/inventoryModel");
 
 exports.getAllStocks = async (_req, res) => {
 
   try {
-    const stocks = await stocksModel.findAll({
+    const cekData = await inventoryModel.findAll({
+      attributes: ["id", "item_name", "stock", "satuan"],
       where: {
         deleted_at: null, 
       },
@@ -11,8 +12,8 @@ exports.getAllStocks = async (_req, res) => {
     });
 
     return res.status(200).json({
-      message: "Success get all stocks",
-      data: stocks,
+      message: "Sukses",
+      data: cekData
     });
   } catch (error) {
     console.error("Error get stock:", error.message);
@@ -22,25 +23,28 @@ exports.getAllStocks = async (_req, res) => {
 
 exports.addStocks = async (req, res) => {
   try {
-    const { item_name, stock_in, stock_out, unit } = req.body;
+    const { item_name, stock, satuan } = req.body;
 
-    if (!item_name || !unit) {
+    if (!item_name || !stock || !satuan) {
       return res.status(400).json({
-        message: "item_name dan unit wajib diisi",
+        message: "Field wajib diisi",
       });
     }
 
-    const newStock = await stocksModel.create({
+    const newStock = await inventoryModel.create({
       item_name,
-      stock_in: stock_in || 0,
-      stock_out: stock_out || 0,
-      unit,
+      stock,
+      satuan,
       updated_by: req.user?.username || "system", 
     });
 
     return res.status(201).json({
       message: "Stock berhasil ditambahkan",
-      data: newStock,
+      data: {
+        item_name:newStock.item_name,
+        stock:newStock.stock,
+        satuan:newStock.satuan
+      }
     });
   } catch (error) {
     console.error("Error add stock:", error.message);
@@ -51,33 +55,31 @@ exports.addStocks = async (req, res) => {
 
 exports.updateStocks = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { item_name, stock_in, stock_out, unit } = req.body;
+    const { id } = req.query;
+    const { item_name, stock, satuan } = req.body;
 
-    const stock = await stocksModel.findOne({
+    const cekData = await inventoryModel.findOne({
       where: { 
         id, 
         deleted_at: null 
     },
     });
 
-    if (!stock) {
+    if (!cekData) {
       return res.status(404).json({
         message: "Stock tidak ditemukan",
       });
     }
 
-    await stock.update({
-      item_name: item_name ?? stock.item_name,
-      stock_in: stock_in ?? stock.stock_in,
-      stock_out: stock_out ?? stock.stock_out,
-      unit: unit ?? stock.unit,
+    await cekData.update({
+      item_name: item_name ?? cekData.item_name,
+      stock: stock ?? cekData.stock,
+      satuan: satuan ?? cekData.satuan,
       updated_by: req.user?.username || "system",
     });
 
     return res.status(200).json({
       message: "Stock berhasil diupdate",
-      data: stock,
     });
   } catch (error) {
     console.error("Error update stock:", error.message);
@@ -87,9 +89,9 @@ exports.updateStocks = async (req, res) => {
 
 exports.deleteStocks = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
 
-    const stock = await stocksModel.findOne({
+    const stock = await inventoryModel.findOne({
       where: { 
         id, 
         deleted_at: null 

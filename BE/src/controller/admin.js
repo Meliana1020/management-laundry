@@ -6,7 +6,7 @@ exports.getAllUser = async (_req, res) => {
         const users = await usersModel.findAll({
             attributes: ['id', 'name', 'email', 'role'],
             where: {
-                deletedAt: null
+                deleted_at: null
             }
         });
 
@@ -24,12 +24,12 @@ exports.getAllUser = async (_req, res) => {
 
 exports.getUserById = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.query;
 
         const user = await usersModel.findOne({
             where: {
                 id,
-                deletedAt: null
+                deleted_at: null
             },
             attributes: ['id', 'name', 'email', 'role']
         });
@@ -52,13 +52,13 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.query;
         const { name, email, role } = req.body;
 
         const user = await usersModel.findOne({
             where: {
                 id,
-                deletedAt: null
+                deleted_at: null
             }
         });
 
@@ -85,13 +85,13 @@ exports.updateUser = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.query;
         const { passwordBaru } = req.body;
 
         const user = await usersModel.findOne({
             where: {
                 id,
-                deletedAt: null
+                deleted_at: null
             }
         });
 
@@ -119,7 +119,7 @@ exports.resetPassword = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.query;
 
         const user = await usersModel.findOne({
             where: { id }
@@ -129,12 +129,12 @@ exports.deleteUser = async (req, res) => {
             return res.status(404).json({ message: "User tidak ditemukan" });
         }
 
-        if (user.deletedAt) {
+        if (user.deleted_at) {
             return res.status(400).json({ message: "User sudah dihapus sebelumnya" });
         }
 
         await user.update({
-            deletedAt: new Date()
+            deleted_at: new Date()
         });
 
         res.status(200).json({

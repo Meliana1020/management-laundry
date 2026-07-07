@@ -23,10 +23,10 @@ const {
 
 const authMiddleware = require('../middleware/auth.js');
 
-router.get('/get-customer-by-id', authMiddleware, getByIdCustomer);
-router.put('/update/customer-by-id', authMiddleware, updateCustomer);
-router.delete('/delete/customer-by-id', authMiddleware, deleteCustomer);
-router.put('/reset/password-customer-by-id', authMiddleware, resetPasswordUser);
+router.get('/get-customer', authMiddleware, getByIdCustomer);
+router.put('/update-customer', authMiddleware, updateCustomer);
+router.put('/reset-password', authMiddleware, resetPasswordUser);
+router.delete('/delete-customer', authMiddleware, deleteCustomer);
 
 
 

@@ -7,7 +7,7 @@ exports.getByIdCustomer = async (req, res) => {
             where: {
                 id: req.user.id,
                 role: 'customer',
-                deletedAt: null
+                deleted_at: null
             },
             attributes: ['id', 'name', 'email', 'role']
         });
@@ -27,7 +27,6 @@ exports.getByIdCustomer = async (req, res) => {
     }
 };
 
-
 exports.updateCustomer = async (req, res) => {
     try {
         const { name, email } = req.body;
@@ -36,7 +35,7 @@ exports.updateCustomer = async (req, res) => {
             where: {
                 id: req.user.id,
                 role: 'customer',
-                deletedAt: null
+                deleted_at: null
             }
         });
 
@@ -59,39 +58,6 @@ exports.updateCustomer = async (req, res) => {
     }
 };
 
-
-exports.deleteCustomer = async (req, res) => {
-    try {
-        const user = await usersModel.findOne({
-            where: {
-                id: req.user.id,
-                role: 'customer'
-            }
-        });
-
-        if (!user) {
-            return res.status(404).json({ message: "Customer tidak ditemukan" });
-        }
-
-        if (user.deletedAt) {
-            return res.status(400).json({ message: "Akun sudah dihapus sebelumnya" });
-        }
-
-        await user.update({
-            deletedAt: new Date()
-        });
-
-        res.status(200).json({
-            message: "Akun berhasil dihapus (soft delete)"
-        });
-
-    } catch (error) {
-        console.error("Error delete account:", error.message);
-        res.status(500).json({ message: "Terjadi kesalahan server" });
-    }
-};
-
-
 exports.resetPasswordUser = async (req, res) => {
     try {
         const { passwordBaru } = req.body;
@@ -100,7 +66,7 @@ exports.resetPasswordUser = async (req, res) => {
             where: {
                 id: req.user.id,
                 role: 'customer',
-                deletedAt: null
+                deleted_at: null
             }
         });
 
@@ -124,3 +90,36 @@ exports.resetPasswordUser = async (req, res) => {
         res.status(500).json({ message: "Terjadi kesalahan server" });
     }
 };
+
+exports.deleteCustomer = async (req, res) => {
+    try {
+        const user = await usersModel.findOne({
+            where: {
+                id: req.user.id,
+                role: 'customer'
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "Customer tidak ditemukan" });
+        }
+
+        if (user.deleted_at) {
+            return res.status(400).json({ message: "Akun sudah dihapus sebelumnya" });
+        }
+
+        await user.update({
+            deleted_at: new Date()
+        });
+
+        res.status(200).json({
+            message: "Akun berhasil dihapus"
+        });
+
+    } catch (error) {
+        console.error("Error delete account:", error.message);
+        res.status(500).json({ message: "Terjadi kesalahan server" });
+    }
+};
+
+

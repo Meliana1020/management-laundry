@@ -13,17 +13,22 @@ const {
     addStocks,
     updateStocks,
     deleteStocks
-} = require('../controller/stocks.js');
+} = require('../controller/inventory.js');
 
 const authMiddleware = require('../middleware/auth.js');
 
 
-router.get('/get-user', authMiddleware, getAllUser);
-router.get('/get-user-by/:id', authMiddleware, getUserById);
-router.put('/update-user-by/:id', authMiddleware, updateUser);
-router.put('/reset-password/:id', authMiddleware, resetPassword);
-router.delete('/delete-user-by/:id', authMiddleware, deleteUser);
+router.get('/get-all', authMiddleware, getAllUser);
+router.get('/get-by', authMiddleware, getUserById);
+router.put('/update-by', authMiddleware, updateUser);
+router.put('/reset-password', authMiddleware, resetPassword);
+router.delete('/delete-by', authMiddleware, deleteUser);
 
+// // untuk stok
+router.get('/get-stocks', authMiddleware, getAllStocks);
+router.post('/add-stocks', authMiddleware, addStocks);
+router.put('/update-stocks', authMiddleware, updateStocks);
+router.delete('/delete-stocks', authMiddleware, deleteStocks);
 
 // // untuk ordernya
 // router.post('/add-order',);
@@ -44,11 +49,6 @@ router.delete('/delete-user-by/:id', authMiddleware, deleteUser);
 // router.get('/get-payments/:order_id',);
 // router.put('/update-payments/:id/status',);
 
-// // untuk stok
-router.get('/get-stocks', authMiddleware, getAllStocks);
-router.post('/add-stocks', authMiddleware, addStocks);
-router.put('/update-stocks/:id', authMiddleware, updateStocks);
-router.delete('/delete-stocks/:id', authMiddleware, deleteStocks);
 
 // // untuk upah karyawannya
 // router.get('/get-payrolls', authMiddleware,);
