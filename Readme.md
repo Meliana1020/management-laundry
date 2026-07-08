@@ -1,0 +1,6 @@
+git checkout main
+git pull upstream main
+git restore --source backend/dev BE
+git add BE
+git commit -m "update backend dari branch backend/dev"
+git push upstream main
