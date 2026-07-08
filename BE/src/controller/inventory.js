@@ -1,6 +1,6 @@
 const { inventoryModel } = require("../model/inventoryModel");
 
-exports.getAllStocks = async (_req, res) => {
+exports.getAllInventory = async (_req, res) => {
 
   try {
     const cekData = await inventoryModel.findAll({
@@ -21,7 +21,7 @@ exports.getAllStocks = async (_req, res) => {
   }
 };
 
-exports.addStocks = async (req, res) => {
+exports.addInventory = async (req, res) => {
   try {
     const { item_name, stock, satuan } = req.body;
 
@@ -53,7 +53,7 @@ exports.addStocks = async (req, res) => {
   }
 };
 
-exports.updateStocks = async (req, res) => {
+exports.updateInventory = async (req, res) => {
   try {
     const { id } = req.query;
     const { item_name, stock, satuan } = req.body;
@@ -87,7 +87,7 @@ exports.updateStocks = async (req, res) => {
   }
 };
 
-exports.deleteStocks = async (req, res) => {
+exports.deleteInventory = async (req, res) => {
   try {
     const { id } = req.query;
 
@@ -115,5 +115,49 @@ exports.deleteStocks = async (req, res) => {
   } catch (error) {
     console.error("Error hapus stock:", error.message);
     res.status(500).json({ message: "Terjadi kesalahan server" });
+  }
+};
+
+exports.addStock = async (req, res) => {
+
+  try {
+    const { id } = req.query;
+    const { stock } = req.body;
+
+    if (!stock || stock <= 0) {
+      return res.status(400).json({
+        message: "Jumlah stok harus lebih dari 0",
+      });
+    }
+
+    const inventory = await inventoryModel.findOne({
+      where: {
+        id,
+        deleted_at: null,
+      },
+    });
+
+    if (!inventory) {
+      return res.status(404).json({
+        message: "Inventory tidak ditemukan",
+      });
+    }
+
+    const totalStock = Number(inventory.stock) + Number(stock);
+
+    await inventory.update({
+      stock: totalStock,
+      updated_by: req.user?.username || "system",
+    });
+
+    return res.status(200).json({
+      message: "Stok berhasil diupdate",
+    });
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Terjadi kesalahan server",
+    });
   }
 };

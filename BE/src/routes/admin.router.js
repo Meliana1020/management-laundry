@@ -9,10 +9,11 @@ const {
 } = require('../controller/admin.js');
 
 const {
-    getAllStocks,
-    addStocks,
-    updateStocks,
-    deleteStocks
+    getAllInventory,
+    addInventory,
+    updateInventory,
+    deleteInventory,
+    addStock
 } = require('../controller/inventory.js');
 
 const authMiddleware = require('../middleware/auth.js');
@@ -24,11 +25,12 @@ router.put('/update-by', authMiddleware, updateUser);
 router.put('/reset-password', authMiddleware, resetPassword);
 router.delete('/delete-by', authMiddleware, deleteUser);
 
-// // untuk stok
-router.get('/get-stocks', authMiddleware, getAllStocks);
-router.post('/add-stocks', authMiddleware, addStocks);
-router.put('/update-stocks', authMiddleware, updateStocks);
-router.delete('/delete-stocks', authMiddleware, deleteStocks);
+// // untuk inventory
+router.get('/get-inventory', authMiddleware, getAllInventory);
+router.post('/add-inventory', authMiddleware, addInventory);
+router.put('/update-inventory', authMiddleware, updateInventory);
+router.delete('/delete-inventory', authMiddleware, deleteInventory);
+router.put('/add-stock', authMiddleware, addStock);
 
 // // untuk ordernya
 // router.post('/add-order',);
